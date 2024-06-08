@@ -1,0 +1,8 @@
+# Your Stats!
+
+Your Stats!(patent pending) pulls your top listening data from Spotify on-demand. No need to wait for Wrapped every year, just pull Your Stats!(patent pending) whenever you want!
+
+## Features
+
+You are able to toggle between two data types: Top Artists, and Top Tracks.
+You are also able to toggle between three time frames for the data set: The most recent year of listening activity, the most recent 6 months of listening activity, and the most recent 4 weeks of listening activity.

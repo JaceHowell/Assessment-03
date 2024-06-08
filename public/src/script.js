@@ -16,19 +16,24 @@ document.getElementById("data-submit").addEventListener("click", async (e) => {
     // return result.json();
     
     if (accessTokenStorage[0]) {
-        document.getElementById("artist-image").innerHTML=''
-        document.getElementById("album-image").innerHTML=''
-        document.getElementById("artist-name").innerHTML=''
-        document.getElementById("track-name").innerHTML=''
-        document.getElementById("track-artist").innerHTML=''
+        document.getElementById('artist-area').remove()
+        document.getElementById('artists').appendChild(document.createElement('div')).setAttribute('id', 'artist-area')
+        document.getElementById('track-area').remove()
+        document.getElementById('tracks').appendChild(document.createElement('div')).setAttribute('id', 'track-area')
+        // document.getElementById("artist-image").innerHTML=''
+        // document.getElementById("album-image").innerHTML=''
+        // document.getElementById("artist-name").innerHTML=''
+        // document.getElementById("track-name").innerHTML=''
+        // document.getElementById("track-artist").innerHTML=''
 
         // ^Clears the previous images from their respective spans.
         
         // console.log(accessTokenStorage[0]);
-        const TopData = await fetchTopData(accessTokenStorage[0]);
+        const topData = await fetchTopData(accessTokenStorage[0]);
+        console.log(topData);
         // console.log(dynamicTopData);
 
-        populateUI(TopData)
+        populateUI(topData)
     }
     else if (!code) {
         redirectToAuthCodeFlow(clientId);
@@ -109,21 +114,44 @@ async function fetchTopData(token) {
     const result = await fetch(`https://api.spotify.com/v1/me/top/${document.getElementById("data-type").value}?time_range=${document.getElementById("data-time").value}`, {
         method: "GET", headers: { Authorization: `Bearer ${token}` }
     });
-
     return await result.json();
 }
 
 function populateUI(topData) {
     if (document.getElementById("data-type").value === "artists") {
+        for (let i = 0; i < topData.items.length; i++) {
         const artistImage = new Image(200, 200);
-        artistImage.src = topData.items[0].images[0].url;
-        document.getElementById("artist-image").appendChild(artistImage);
-        document.getElementById("artist-name").innerText = topData.items[0].name;
+        artistImage.src = topData.items[i].images[0].url;
+        // document.getElementById("artist-image").appendChild(artistImage);
+        // document.getElementById("artist-name").innerText = topData.items[i].name;
+    
+        const artistArea = document.getElementById('artist-area')
+        const div = document.createElement('div');
+        div.appendChild(artistImage);
+        const p = document.createElement('p');
+        p.innerText = topData.items[i].name;
+        artistArea.appendChild(div);
+        artistArea.appendChild(p);
+
+    }
     } else if (document.getElementById("data-type").value === "tracks") {
+        for (let i = 0; i < topData.items.length; i++) {
         const albumImage = new Image(200, 200);
-        albumImage.src = topData.items[0].album.images[0].url;
-        document.getElementById("album-image").appendChild(albumImage);
-        document.getElementById("track-artist").innerText = topData.items[0].artists[0].name;
-        document.getElementById("track-name").innerText = topData.items[0].name;
+        albumImage.src = topData.items[i].album.images[0].url;
+        // document.getElementById("album-image").appendChild(albumImage);
+        // document.getElementById("track-artist").innerText = topData.items[i].artists[0].name;
+        // document.getElementById("track-name").innerText = topData.items[i].name;
+    
+        const trackArea = document.getElementById('track-area');
+        const div = document.createElement('div');
+        div.appendChild(albumImage);
+        const trackName = document.createElement('p');
+        trackName.innerText = topData.items[i].name;
+        const artistName = document.createElement('p');
+        artistName.innerText = topData.items[i].artists[0].name;
+        trackArea.appendChild(div);
+        trackArea.appendChild(trackName);
+        trackArea.appendChild(artistName);
+    }
     }
 }

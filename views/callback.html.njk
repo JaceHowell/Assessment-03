@@ -6,6 +6,7 @@
     <title>Your Stats!</title>
 </head>
 <body>
+<header>
     <h1>Your Stats!</h1>
     <form name="data-selection" id="data-selection">
         <label for="data-type">See your Top Artists or Top Tracks?</label>
@@ -19,10 +20,37 @@
             <option value="medium_term">Past 6 months</option>
             <option value="short_term">Past 4 weeks</option>
         </select>
-
         <button type="submit" id="data-submit">Submit!</button>
     </form>
-    
+</header>
+
+<div id="artists">
+    <div id="artist-area">
+
+
+
+        {# <div id="artist">
+            <span id="artist-image"></span>
+            <p id="artist-name"></p>
+        </div> #}
+    </div>
+</div>
+
+<div id="tracks">
+    <div id="track-area">
+
+
+        {# <div id="track">
+            <span id="album-image"></span>
+            <p id="track-name"></p>
+            <p id="track-artist"></p>
+        </div> #}
+    </div>
+</div>
+    <footer>
+        <p>{{footer}}</p>
+    </footer>
+
     <script src="/src/script.js" type="module"></script>
 </body>
 </html>

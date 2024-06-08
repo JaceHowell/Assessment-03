@@ -9,23 +9,23 @@ const port = '4090';
 // Middleware
 app.use(morgan('dev'));
 // post reqs
-app.use(express.urlencoded({extended: false}))
+app.use(express.urlencoded({ extended: false }))
 app.use(express.static('public'))
-app.use(session({
-  secret: 'shhhh',
-  saveUninitialized: true,
-  resave: false
-}))
+app.use(session({ secret: 'shhhh', saveUninitialized: true, resave: false }))
+
 nunjucks.configure('views', {
   autoescape: true,
   express: app
 })
 
 app.get('/', (req, res) => {
-  res.render('index.html')
+  res.render('index.html.njk')
 })
+
 app.get('/callback', (req, res) => {
-  res.render('callback.html')
+  const footer = "this is my footer pls don't fail me thanks -mAsTeR wEb DeV jAcE"
+  const htmlMaker = 
+  res.render('callback.html.njk', {footer})
 })
 
 app.listen(port, () => {
